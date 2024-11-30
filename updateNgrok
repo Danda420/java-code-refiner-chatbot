@@ -1,0 +1,18 @@
+#!/usr/bin/bash
+
+if [[ $1 == "" ]]; then
+   echo "usage: $0 [new Ngrok Tunnel]"
+   exit 1
+fi
+
+if [[ $(git log -1 | grep "Update ngrokTunnel") == "" ]]; then
+   echo "last commit is not related to ngrokTunnel update, aborting..."
+   exit 1
+fi
+
+git reset --soft HEAD~1
+echo $1 > ngrokTunnel
+git add ngrokTunnel
+git commit -m "Update ngrokTunnel"
+git push -f origin main
+
